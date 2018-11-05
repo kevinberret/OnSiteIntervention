@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html 	xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/default" th:with="title=(${edit} ? 'Edit customer details' : 'Create new customer')">
+<head>
+    <meta charset="utf-8"/>
+	<title th:text="${title}"></title>
+</head>
+<body>
+	<div class="col s12 m8 offset-m1 xl7 offset-xl1" layout:fragment="content">			 	
+		<form th:object="${customer}" th:action="@{/customer/save}" action="#" method="post">
+			<input type="hidden" id="id" th:field="*{id}"/>
+			<h5>Customer informations</h5>
+		    <div class="row">
+		        <div class="input-field col s6">
+		          <input id="first_name" type="text" class="validate" th:field="*{firstname}" required>
+		          <label for="first_name">First Name</label>
+		        </div>
+		        <div class="input-field col s6">
+	          		<input id="last_name" type="text" class="validate" th:field="*{lastname}" required>
+	          		<label for="last_name">Last Name</label>
+		        </div>
+			 </div>
+			 <h5>Address</h5>
+			 <div class="row">
+		        <div class="input-field col s6">
+		        	<input id="street" type="text" class="validate" th:field="*{address.street}" required>
+          			<label for="street">Street</label>
+		        </div>
+		        <div class="input-field col s6">
+		        	<input id="number" type="text" class="validate" th:field="*{address.number}" required>
+          			<label for="number">Number</label>
+		        </div>
+		      </div>
+		      <div class="row">
+		        <div class="input-field col s6">
+		        	<input id="zip" type="text" class="validate" th:field="*{address.zip}" required>
+          			<label for="zip">ZIP</label>
+		        </div>
+		        <div class="input-field col s6">
+		        	<input id="city" type="text" class="validate" th:field="*{address.city}" required>
+          			<label for="city">City</label>
+		        </div>
+		      </div>
+		  	<button type="submit" class="waves-effect waves-green btn-flat"><i class="material-icons left">send</i> Save</button>
+	  	</form>
+	</div>
+	
+	<th:block layout:fragment="customScripts">	
+		<script>
+			// Init all tooltips on the page
+			document.addEventListener('DOMContentLoaded', function() {
+			    var elems = document.querySelectorAll('.tooltipped');
+			    var instances = M.Tooltip.init(elems, {});
+		  	});
+		</script>
+	</th:block>	
+</body>
+</html>

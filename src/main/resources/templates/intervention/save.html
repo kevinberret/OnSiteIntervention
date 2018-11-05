@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html 	xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/default" th:with="title=(${edit} ? 'Edit intervention details' : 'Create new intervention')">
+<head>
+    <meta charset="utf-8"/>
+	<title th:text="${title}"></title>
+</head>
+<body>
+	<div class="col s12 m8 offset-m1 xl7 offset-xl1" layout:fragment="content">	
+		<form th:object="${intervention}" th:action="@{/intervention/save}" action="#" method="post">
+			<input type="hidden" id="id" th:field="*{id}"/>
+			<h5>Intervention informations</h5>
+		    <div class="row">
+		    	 <div class="input-field col s12">
+				    <select th:field="*{employee}">
+				      <option value="" disabled selected>Employee selection</option>
+				      <option th:each="employee:${employees}" th:value="${employee.id}" th:text="${employee.lastname} + ' ' + ${employee.firstname}"></option>
+				    </select>
+				    <label>Employee selection</label>
+				  </div>
+			 </div>
+			 <div class="row">
+		    	 <div class="input-field col s12">
+				    <select th:field="*{customer}">
+				      <option value="" disabled selected>Customer selection</option>
+				      <option th:each="customer:${customers}" th:value="${customer.id}" th:text="${customer.lastname} + ' ' + ${customer.firstname}"></option>
+				    </select>
+				    <label>Customer selection</label>
+				  </div>
+			 </div>
+			 <div class="row">
+				 <div class="input-field col s6">		 
+				 	<input id="date" type="text" class="datepicker" th:field="*{date}" required>
+				 	<label for="date">Date</label>
+				 </div>
+				 <div class="input-field col s6">
+				 	<input id="time" type="text" class="timepicker" th:field="*{time}" required>
+				 	<label for="time">Time</label>
+				 </div>
+		      </div>
+		  	<button type="submit" class="waves-effect waves-green btn-flat"><i class="material-icons left">send</i> Save</button>
+	  	</form>
+	</div>
+	
+	<th:block layout:fragment="customScripts">
+		<script th:inline="javascript">			
+			// Init all tooltips on the page
+			document.addEventListener('DOMContentLoaded', function() {
+			    var elems = document.querySelectorAll('.tooltipped');
+			    var instances = M.Tooltip.init(elems, {});
+		  	});
+			
+			document.addEventListener('DOMContentLoaded', function() {
+			    var elems = document.querySelectorAll('select');
+			    var instances = M.FormSelect.init(elems, {});
+			  });
+			
+			document.addEventListener('DOMContentLoaded', function() {
+			    var elems = document.querySelectorAll('.datepicker');
+			    var instances = M.Datepicker.init(elems, {
+			    	'format':'yyyy-mm-dd',
+			    	'minDate': new Date(),
+			    	'disableWeekends':true,
+			    	'firstDay': 1 // monday instead of sunday (default)
+				});
+		  	});
+			
+			document.addEventListener('DOMContentLoaded', function() {
+			    var elems = document.querySelectorAll('.timepicker');
+			    var instances = M.Timepicker.init(elems, {
+			    	'twelveHour':false
+			    });
+		  	});
+
+		</script>
+	</th:block>
+</body>
+</html>

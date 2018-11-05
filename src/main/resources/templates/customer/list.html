@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html 	xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/default" th:with="title='Customers'">
+<head>
+    <meta charset="utf-8"/>
+	<title th:text="${title}"></title>
+</head>
+<body>
+	<div class="col s12 m8 offset-m1 xl7 offset-xl1" layout:fragment="content">
+		<table class="table table-striped">
+			<tr>
+				<th>First name</th>
+				<th>Last name</th>
+				<th>Address</th>
+				<th>Actions</th>
+			</tr>
+			<tr th:each="customer : ${customers}">
+				<td th:text="${#strings.defaultString(customer?.firstname, '')}"></td>
+				<td th:text="${#strings.defaultString(customer?.lastname, '')}"></td>
+				<td th:text="${#strings.defaultString(customer?.address?.street, '')} + ' ' + ${#strings.defaultString(customer?.address?.number, '')} + ' ' + ${#strings.defaultString(customer?.address?.zip, '')} + ' ' + ${#strings.defaultString(customer?.address?.city, '')}"></td>
+				<td>
+					<a class="btn-flat tooltipped" data-position="top" data-tooltip="Edit" th:href="@{/customer/edit/{id}(id=${customer.id})}"><i class="material-icons left">edit</i></a>
+					<a class="btn-flat tooltipped" data-position="top" data-tooltip="Delete" th:href="@{/customer/delete/{id}(id=${customer.id})}"><i class="material-icons left">delete</i></a>
+				</td>
+			</tr>
+		</table>
+		<div class="fixed-action-btn">
+			<a class="btn-floating btn-large waves-effect waves-light tooltipped modal-trigger" href="/customer/add" data-position="left" data-tooltip="New customer">
+				<i class="material-icons">add</i>
+			</a>
+	 	</div>
+	 </div>
+	
+	<th:block layout:fragment="customScripts">	
+		<script>
+			// Init all tooltips on the page
+			document.addEventListener('DOMContentLoaded', function() {
+			    var elems = document.querySelectorAll('.tooltipped');
+			    var instances = M.Tooltip.init(elems, {});
+		  	});
+		</script>		
+	</th:block>	
+</body>
+</html>
