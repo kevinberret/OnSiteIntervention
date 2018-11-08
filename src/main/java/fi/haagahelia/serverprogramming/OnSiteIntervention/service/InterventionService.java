@@ -1,10 +1,12 @@
-package fi.haagahelia.serverprogramming.OnSiteIntervention.Service;
+package fi.haagahelia.serverprogramming.OnSiteIntervention.service;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.Employee;
 import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.Intervention;
 import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.InterventionRepository;
 
@@ -22,6 +24,10 @@ public class InterventionService {
 		return (List<Intervention>) interventionRepo.findAll();
 	}
 	
+	public List<Intervention> getAllInterventionsByEmployee(Employee employee){
+		return (List<Intervention>) interventionRepo.findByEmployee(employee);
+	}
+	
 	public Optional<Intervention> getIntervention(Long id) {
 		return interventionRepo.findById(id);
 	}
@@ -34,7 +40,19 @@ public class InterventionService {
 		return interventionRepo.save(intervention);
 	}
 	
-	public boolean deleteIntervention(Long id) {
+	public boolean deleteIntervention(Intervention intervention) {
+		// Try to find the desired intervention
+		Optional<Intervention> element = interventionRepo.findById(intervention.getId());
+		
+		if(element.isPresent()) {		
+			interventionRepo.delete(intervention);
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean deleteInterventionById(Long id) {
 		// Try to find the desired intervention
 		Optional<Intervention> element = interventionRepo.findById(id);
 		

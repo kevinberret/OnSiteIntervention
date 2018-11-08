@@ -1,4 +1,4 @@
-package fi.haagahelia.serverprogramming.OnSiteIntervention.Service;
+package fi.haagahelia.serverprogramming.OnSiteIntervention.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -41,7 +41,19 @@ public class CustomerService {
 		return customerRepo.save(customer);
 	}
 	
-	public boolean deleteCustomer(Long id) {
+	public boolean deleteCustomer(Customer customer) {
+		// Try to find the desired customer
+		Optional<Customer> element = customerRepo.findById(customer.getId());
+		
+		if(element.isPresent()) {		
+			customerRepo.delete(customer);
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean deleteCustomerById(Long id) {
 		// Try to find the desired customer
 		Optional<Customer> element = customerRepo.findById(id);
 		

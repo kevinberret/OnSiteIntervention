@@ -1,6 +1,7 @@
 package fi.haagahelia.serverprogramming.OnSiteIntervention.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,11 +9,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import fi.haagahelia.serverprogramming.OnSiteIntervention.Service.CustomerService;
-import fi.haagahelia.serverprogramming.OnSiteIntervention.Service.EmployeeService;
 import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.Address;
 import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.Customer;
 import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.Employee;
+import fi.haagahelia.serverprogramming.OnSiteIntervention.service.CustomerService;
+import fi.haagahelia.serverprogramming.OnSiteIntervention.service.EmployeeService;
 
 /**
  * This is the controller for customers.
@@ -39,10 +40,10 @@ public class CustomerController {
 	}
 	
 	@GetMapping("/add")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public String addCustomer(Model model) {
 		// create a new customer and set edit flag to false (rendering purposes)
 		Customer customer = new Customer();
-		customer.setAddress(new Address());
 		model.addAttribute("customer", customer);
 		model.addAttribute("edit", false);
 		
@@ -51,6 +52,7 @@ public class CustomerController {
 	}
 	
 	@GetMapping("/edit/{id}")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public String editCustomer(@PathVariable("id") Long id, Model model) {
 		// get the desired customer and set edit flag to true (rendering purposes)
 		model.addAttribute("customer", customerService.getCustomer(id));
@@ -61,6 +63,7 @@ public class CustomerController {
 	}
 	
 	@PostMapping("/save")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public String saveCustomer(Customer customer) {
 		// save the entity via the service layer
 		customerService.addCustomer(customer);
@@ -70,9 +73,10 @@ public class CustomerController {
 	}
 	
 	@GetMapping("/delete/{id}")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public String deleteCustomer(@PathVariable("id") Long id, Model model) {
 		// delete the desired customer via the service layer
-		customerService.deleteCustomer(id);
+		customerService.deleteCustomerById(id);
 		
 		// render data in template
 		return "redirect:/customer/showlist";

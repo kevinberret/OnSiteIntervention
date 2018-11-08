@@ -4,13 +4,13 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,15 +22,16 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 public class Intervention {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name="intervention_id")
 	private Long id;
 	
-	@ManyToOne
-	@JoinColumn(name="customerId")
+	@OneToOne
+	@JoinColumn(name="customer_id")
 	private Customer customer;
 	
-	@ManyToOne
-	@JoinColumn(name="employeeId")
+	@OneToOne
+	@JoinColumn(name="employee_id")
 	private Employee employee;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

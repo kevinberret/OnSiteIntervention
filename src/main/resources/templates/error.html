@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html 	xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/visitor" th:with="title='Access denied'">
+<head>
+    <meta charset="utf-8"/>
+	<title th:text="${title}"></title>
+</head>
+<body>
+	<div class="col s12 m8 offset-m1 xl7 offset-xl1" layout:fragment="content">
+		
+		<div class="row">
+		   <div class="col s12 m12">
+		     <h1>An error occured</h1>
+		     <p>Please contact administrator if it occurs again</p>
+		     <a href="/index" class="waves-effect waves-light btn">Go back to index</a>
+		   </div>
+		 </div>		
+	</div>
+</body>
+</html>

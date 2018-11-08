@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html 	xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/default" th:with="title='Employees'">
 <head>
     <meta charset="utf-8"/>
@@ -12,19 +13,19 @@
 				<th>First name</th>
 				<th>Last name</th>
 				<th>Work rate</th>
-				<th>Actions</th>
+				<th sec:authorize="${hasAuthority('ADMIN')}">Actions</th>
 			</tr>
 			<tr th:each="employee : ${employees}">
 				<td th:text="${#strings.defaultString(employee?.firstname, '')}"></td>
 				<td th:text="${#strings.defaultString(employee?.lastname, '')}"></td>
 				<td th:text="${#strings.defaultString(employee?.workRate, '')}"></td>
-				<td>
+				<td sec:authorize="${hasAuthority('ADMIN')}">
 					<a class="btn-flat tooltipped" data-position="top" data-tooltip="Edit" th:href="@{/employee/edit/{id}(id=${employee.id})}"><i class="material-icons left">edit</i></a>
 					<a class="btn-flat tooltipped" data-position="top" data-tooltip="Delete" th:href="@{/employee/delete/{id}(id=${employee.id})}"><i class="material-icons left">delete</i></a>
 				</td>
 			</tr>
 		</table>
-		<div class="fixed-action-btn">
+		<div sec:authorize="${hasAuthority('ADMIN')}" class="fixed-action-btn">
 			<a class="btn-floating btn-large waves-effect waves-light tooltipped modal-trigger" href="/employee/add" data-position="left" data-tooltip="New employee">
 				<i class="material-icons">add</i>
 			</a>

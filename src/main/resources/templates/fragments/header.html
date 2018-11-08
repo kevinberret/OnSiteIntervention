@@ -1,4 +1,6 @@
-<div xmlns:th="http://wwww.thymeleaf.org" th:fragment="header">
+<div 	xmlns:th="http://wwww.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+		th:fragment="header">
 	<header>
 		<nav class="top-nav">
  			<div class="container">
@@ -14,10 +16,41 @@
 		<div class="container">
 			<a href="#" data-target="slide-out" class="top-nav sidenav-trigger full hide-on-large-only"><i class="material-icons">menu</i></a>
 		</div>
-		<ul id="slide-out" class="sidenav sidenav-fixed">
-			<li><a href="/intervention/showlist">Interventions</a></li>
-			<li><a href="/customer/showlist">Customers</a></li>
-			<li><a href="/employee/showlist">Employees</a></li>
+		<ul id="slide-out" class="sidenav sidenav-fixed">	
+		    <li>
+		    	<ul class="collapsible collapsible-accordion">
+		          <li>
+		            <a class="collapsible-header"><i class="material-icons">person</i>[[${employee.firstname}+ ' ' +${employee.lastname}]]</a>
+		            <div class="collapsible-body">
+		              <ul>
+		              	<li><a class="disabled"><span th:text="${employee.username}"></span></a></li>
+		                <li>
+		                	<form th:action="@{/logout}" id="logout" method="post">
+								<input type="submit" value="Sign Out" class="waves-effect waves-light red lighten-1 white-text btn-small"/>
+							</form>
+						</li>
+		              </ul>
+		            </div>
+		          </li>
+		        </ul>
+    		</li>
+   		   	<li><div class="divider"></div></li>	
+    		<li><a href="/index"><i class="material-icons">home</i>Home</a></li>
+			<li>
+				<ul class="collapsible collapsible-accordion">
+		          <li>
+		            <a class="collapsible-header"><i class="material-icons">work</i>Interventions</a>
+		            <div class="collapsible-body">
+		              <ul>
+		              	<li><a href="/intervention/showmylist">My interventions</a></li>
+		                <li sec:authorize="${hasAuthority('ADMIN')}"><a href="/intervention/showlist">All interventions</a></li>
+		              </ul>
+		            </div>
+		          </li>
+		        </ul>
+			</li>
+			<li><a href="/customer/showlist"><i class="material-icons">people</i>Customers</a></li>
+			<li><a href="/employee/showlist"><i class="material-icons">supervisor_account</i>Employees</a></li>			
 	    </ul>
 	    
     </header>

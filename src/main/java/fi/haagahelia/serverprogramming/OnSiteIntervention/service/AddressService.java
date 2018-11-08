@@ -1,4 +1,4 @@
-package fi.haagahelia.serverprogramming.OnSiteIntervention.Service;
+package fi.haagahelia.serverprogramming.OnSiteIntervention.service;
 
 import java.util.List;
 import java.util.Optional;

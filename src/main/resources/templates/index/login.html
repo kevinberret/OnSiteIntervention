@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html 	xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/visitor" th:with="title='Login'">
+<head>
+    <meta charset="utf-8"/>
+	<title th:text="${title}"></title>
+</head>
+<body>
+	<div class="col s12 m4 offset-m1 xl7 offset-xl1" layout:fragment="content">		
+		<div class="row">
+		   <div class="col s12 m12">
+		     <div class="card darken-1">
+		     	<form th:action="@{/login}" method="post">
+			       	<div class="card-content">
+			         <span class="card-title">Login</span>
+			         	<div class="row">
+							<div class="input-field col s12">
+								<input id="username" name="username" type="text" class="validate">
+								<label for="username">User name</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<input id="password" name="password" type="password" class="validate">
+								<label for="password">Password</label>
+							</div>
+						</div>
+			       	</div>
+			       	<button type="submit" class="btn-floating halfway-fab waves-effect waves-light red tooltipped" data-position="left" data-tooltip="Login"><i class="material-icons">send</i></button>
+		       	</form>
+		     </div>
+		     <div th:if="${param.error}" class="chip">
+				Invalid username and/or password.
+				<i class="close material-icons">close</i>
+			</div>
+			<div th:if="${param.logout}" class="chip">
+				You have been logged out.
+				<i class="close material-icons">close</i>
+			</div>
+		   </div>
+		 </div>		
+	</div>
+	
+		<th:block layout:fragment="customScripts">	
+		<script>
+			// Init all tooltips on the page
+			document.addEventListener('DOMContentLoaded', function() {
+			    var elems = document.querySelectorAll('.tooltipped');
+			    var instances = M.Tooltip.init(elems, {});
+		  	});
+		</script>		
+	</th:block>	
+</body>
+</html>

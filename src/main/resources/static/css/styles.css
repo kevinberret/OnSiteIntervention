@@ -51,6 +51,30 @@ a.sidenav-trigger.top-nav {
 	z-index: 2;
 }
 
+.sidenav .user-view{
+	padding:32px;
+}
+
+.sidenav .user-view .name, .sidenav .user-view .email{
+	margin:0;
+}
+
+.sidenav .user-view  .name{
+	font-weight:bold;
+}
+
+.sidenav .collapsible-header, .sidenav.fixed .collapsible-header, #logout{
+	padding:0 32px;
+}
+
+#logout input{
+	color:#fff;
+}
+
+.col.s12 > .btn-flat {
+   width: 100%;
+}
+
 @media only screen and (max-width: 992px){
 	nav .nav-wrapper {
 		text-align: center;

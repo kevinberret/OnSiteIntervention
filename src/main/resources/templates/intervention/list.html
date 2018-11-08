@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html 	xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/default" th:with="title='Interventions'">
 <head>
     <meta charset="utf-8"/>
@@ -12,13 +13,15 @@
 				<th>Customer</th>
 				<th>Address</th>
 				<th>Time</th>
-				<th>Actions</th>
+				<th sec:authorize="hasAuthority('ADMIN')">Employee</th>
+				<th sec:authorize="hasAuthority('ADMIN')">Actions</th>
 			</tr>
 			<tr th:each="intervention : ${interventions}">
 				<td th:text="${#strings.defaultString(intervention?.customer?.lastname, '')} + ' ' + ${#strings.defaultString(intervention?.customer?.firstname, '')}"></td>
 				<td th:text="${#strings.defaultString(intervention?.customer?.address?.street, '')} + ' ' + ${#strings.defaultString(intervention?.customer?.address?.number, '')} + ', ' + ${#strings.defaultString(intervention?.customer?.address?.zip, '')} + ' ' + ${#strings.defaultString(intervention?.customer?.address?.city, '')}"></td>
 				<td th:text="${#temporals.format(intervention?.date, 'dd.MM.yyyy')} + ' ' + ${#temporals.format(intervention?.time, 'HH:mm')}"></td>
-				<td>
+				<td sec:authorize="hasAuthority('ADMIN')" th:text="${#strings.defaultString(intervention?.employee?.lastname, '')} + ' ' + ${#strings.defaultString(intervention?.employee?.firstname, '')}"></td>
+				<td sec:authorize="hasAuthority('ADMIN')">
 					<a class="btn-flat tooltipped" data-position="top" data-tooltip="Edit" th:href="@{/intervention/edit/{id}(id=${intervention.id})}"><i class="material-icons left">edit</i></a>
 					<a class="btn-flat tooltipped" data-position="top" data-tooltip="Delete" th:href="@{/intervention/delete/{id}(id=${intervention.id})}"><i class="material-icons left">delete</i></a>
 				</td>
@@ -37,7 +40,7 @@
 			document.addEventListener('DOMContentLoaded', function() {
 			    var elems = document.querySelectorAll('.tooltipped');
 			    var instances = M.Tooltip.init(elems, {});
-		  	}); 
+		  	});
 		</script>
 	</th:block>	
 </body>

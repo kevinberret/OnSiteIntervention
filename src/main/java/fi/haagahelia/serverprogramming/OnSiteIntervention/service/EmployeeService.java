@@ -1,4 +1,4 @@
-package fi.haagahelia.serverprogramming.OnSiteIntervention.Service;
+package fi.haagahelia.serverprogramming.OnSiteIntervention.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +27,10 @@ public class EmployeeService {
 		return employeeRepo.findById(id);
 	}
 	
+	public Employee getEmployeeByUsername(String username) {
+		return employeeRepo.findByUsername(username);
+	} 
+	
 	public Employee addEmployee(Employee employee) {
 		return employeeRepo.save(employee);
 	}
@@ -35,7 +39,19 @@ public class EmployeeService {
 		return employeeRepo.save(employee);
 	}
 	
-	public boolean deleteEmployee(Long id) {
+	public boolean deleteEmployee(Employee employee) {
+		// Try to find the desired employee
+		Optional<Employee> element = employeeRepo.findById(employee.getId());
+		
+		if(element.isPresent()) {		
+			employeeRepo.delete(employee);
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean deleteEmployeeById(Long id) {
 		// Try to find the desired employee
 		Optional<Employee> element = employeeRepo.findById(id);
 		
