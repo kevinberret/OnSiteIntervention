@@ -21,7 +21,7 @@ import fi.haagahelia.serverprogramming.OnSiteIntervention.service.EmployeeServic
  *
  */
 @Controller
-@RequestMapping("/customer")
+@RequestMapping("/app/customer")
 public class CustomerController {
 	// get the service layer injected
 	@Autowired

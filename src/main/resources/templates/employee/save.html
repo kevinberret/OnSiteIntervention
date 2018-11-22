@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div class="col s12 m8 offset-m1 xl7 offset-xl1" layout:fragment="content">	
-		<form th:object="${employee}" th:action="@{/employee/save}" action="#" method="post">
+		<form th:object="${employee}" th:action="@{/app/employee/save}" action="#" method="post">
 			<input type="hidden" id="id" th:field="*{id}"/>
 			<h5>Employee informations</h5>
 		    <div class="row">

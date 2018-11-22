@@ -20,13 +20,13 @@
 				<td th:text="${#strings.defaultString(customer?.lastname, '')}"></td>
 				<td th:text="${#strings.defaultString(customer?.address?.street, '')} + ' ' + ${#strings.defaultString(customer?.address?.number, '')} + ' ' + ${#strings.defaultString(customer?.address?.zip, '')} + ' ' + ${#strings.defaultString(customer?.address?.city, '')}"></td>
 				<td sec:authorize="${hasAuthority('ADMIN')}">
-					<a class="btn-flat tooltipped" data-position="top" data-tooltip="Edit" th:href="@{/customer/edit/{id}(id=${customer.id})}"><i class="material-icons left">edit</i></a>
-					<a class="btn-flat tooltipped" data-position="top" data-tooltip="Delete" th:href="@{/customer/delete/{id}(id=${customer.id})}"><i class="material-icons left">delete</i></a>
+					<a class="btn-flat tooltipped" data-position="top" data-tooltip="Edit" th:href="@{/app/customer/edit/{id}(id=${customer.id})}"><i class="material-icons left">edit</i></a>
+					<a class="btn-flat tooltipped" data-position="top" data-tooltip="Delete" th:href="@{/app/customer/delete/{id}(id=${customer.id})}"><i class="material-icons left">delete</i></a>
 				</td>
 			</tr>
 		</table>
 		<div sec:authorize="${hasAuthority('ADMIN')}" class="fixed-action-btn">
-			<a class="btn-floating btn-large waves-effect waves-light tooltipped modal-trigger" href="/customer/add" data-position="left" data-tooltip="New customer">
+			<a class="btn-floating btn-large waves-effect waves-light tooltipped modal-trigger" href="/app/customer/add" data-position="left" data-tooltip="New customer">
 				<i class="material-icons">add</i>
 			</a>
 	 	</div>

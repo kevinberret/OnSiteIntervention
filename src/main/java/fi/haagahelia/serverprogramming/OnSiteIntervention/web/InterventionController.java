@@ -30,7 +30,7 @@ import fi.haagahelia.serverprogramming.OnSiteIntervention.service.InterventionSe
  *
  */
 @Controller
-@RequestMapping("/intervention")
+@RequestMapping("/app/intervention")
 public class InterventionController {
 	// get the service layers injected
 	@Autowired
@@ -105,13 +105,11 @@ public class InterventionController {
 	
 	@PostMapping("/save")
 	public String saveIntervention(Intervention intervention) {
-		System.out.println("client " + intervention.getCustomer().getFirstname());
-		System.out.println("save date " + intervention.getDate().toString());
 		// save the entity via the service layer
 		interventionService.addIntervention(intervention);
 		
 		// redirect to list of interventions
-		return "redirect:/intervention/showlist";
+		return "redirect:/intervention/showmylist";
 	}
 	
 	@GetMapping("/delete/{id}")

@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * This entity represents an Employee.
  * @author kb
@@ -29,9 +31,11 @@ public class Employee extends Person {
 	private String username;
 	
 	@Column(name="password", nullable=false)
+	@JsonIgnore
 	private String passwordHash;
 	
 	@Column(name="role", nullable=false)
+	@JsonIgnore
 	private String role;
 	
 	public Employee() {

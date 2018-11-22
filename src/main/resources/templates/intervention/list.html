@@ -22,13 +22,13 @@
 				<td th:text="${#temporals.format(intervention?.date, 'dd.MM.yyyy')} + ' ' + ${#temporals.format(intervention?.time, 'HH:mm')}"></td>
 				<td sec:authorize="hasAuthority('ADMIN')" th:text="${#strings.defaultString(intervention?.employee?.lastname, '')} + ' ' + ${#strings.defaultString(intervention?.employee?.firstname, '')}"></td>
 				<td sec:authorize="hasAuthority('ADMIN')">
-					<a class="btn-flat tooltipped" data-position="top" data-tooltip="Edit" th:href="@{/intervention/edit/{id}(id=${intervention.id})}"><i class="material-icons left">edit</i></a>
-					<a class="btn-flat tooltipped" data-position="top" data-tooltip="Delete" th:href="@{/intervention/delete/{id}(id=${intervention.id})}"><i class="material-icons left">delete</i></a>
+					<a class="btn-flat tooltipped" data-position="top" data-tooltip="Edit" th:href="@{/app/intervention/edit/{id}(id=${intervention.id})}"><i class="material-icons left">edit</i></a>
+					<a class="btn-flat tooltipped" data-position="top" data-tooltip="Delete" th:href="@{/app/intervention/delete/{id}(id=${intervention.id})}"><i class="material-icons left">delete</i></a>
 				</td>
 			</tr>
 		</table>
 		<div class="fixed-action-btn">
-			<a class="btn-floating btn-large waves-effect waves-light tooltipped modal-trigger" href="/intervention/add" data-position="left" data-tooltip="New intervention">
+			<a class="btn-floating btn-large waves-effect waves-light tooltipped modal-trigger" href="/app/intervention/add" data-position="left" data-tooltip="New intervention">
 				<i class="material-icons">add</i>
 			</a>
 	 	</div>

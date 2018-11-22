@@ -35,22 +35,22 @@
 		        </ul>
     		</li>
    		   	<li><div class="divider"></div></li>	
-    		<li><a href="/index"><i class="material-icons">home</i>Home</a></li>
+    		<li><a href="/app/index"><i class="material-icons">home</i>Home</a></li>
 			<li>
 				<ul class="collapsible collapsible-accordion">
 		          <li>
 		            <a class="collapsible-header"><i class="material-icons">work</i>Interventions</a>
 		            <div class="collapsible-body">
 		              <ul>
-		              	<li><a href="/intervention/showmylist">My interventions</a></li>
-		                <li sec:authorize="${hasAuthority('ADMIN')}"><a href="/intervention/showlist">All interventions</a></li>
+		              	<li><a href="/app/intervention/showmylist">My interventions</a></li>
+		                <li sec:authorize="${hasAuthority('ADMIN')}"><a href="/app/intervention/showlist">All interventions</a></li>
 		              </ul>
 		            </div>
 		          </li>
 		        </ul>
 			</li>
-			<li><a href="/customer/showlist"><i class="material-icons">people</i>Customers</a></li>
-			<li><a href="/employee/showlist"><i class="material-icons">supervisor_account</i>Employees</a></li>			
+			<li><a href="/app/customer/showlist"><i class="material-icons">people</i>Customers</a></li>
+			<li><a href="/app/employee/showlist"><i class="material-icons">supervisor_account</i>Employees</a></li>			
 	    </ul>
 	    
     </header>

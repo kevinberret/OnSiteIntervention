@@ -32,21 +32,27 @@ public class OnSiteInterventionApplication {
 	@Profile("!test")
 	public CommandLineRunner demo(CustomerRepository customerRepo, AddressRepository addressRepo, EmployeeRepository employeeRepo, InterventionRepository interventionRepo) {
 		return args->{
+			/*interventionRepo.deleteAll();
+			employeeRepo.deleteAll();
+			customerRepo.deleteAll();
+			addressRepo.deleteAll();*/
+			
 			// insert data only if database is empty
 			if(addressRepo.count() == 0 
 					&& customerRepo.count() == 0
 					&& employeeRepo.count() == 0
 					&& interventionRepo.count() == 0) {
 				Address address1 = new Address("Baker Street", "221b", "London", "NW1 6XE", 51.523770, -0.158556);
-				addressRepo.save(address1);
+				System.out.println(addressRepo.save(address1).getId());
+				
 				Customer customer = new Customer("Sherlock", "Holmes", address1);
-				customerRepo.save(customer);
-				Employee employee = new Employee("John", "Watson", 100, "user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER");
-				employeeRepo.save(employee);
-				Employee employee2 = new Employee("John", "Doe", 100, "admin", "$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C", "ADMIN");
-				employeeRepo.save(employee2);
+				System.out.println(customerRepo.save(customer).getId());
+				Employee employee = new Employee("John", "Watson", 100, "user", "$2a$10$uljXojmzMK8acsx5LDxWluYL9AS7BBTH/bItlKFdTwLx5vT94doFi", "USER");
+				System.out.println(employeeRepo.save(employee).getId());
+				Employee employee2 = new Employee("John", "Doe", 100, "admin", "$2a$10$9BxOY8KPMisep7c7/6y1Xe6kTLRDES72BjweTaY72qlYHezFzMhqW", "ADMIN");
+				System.out.println(employeeRepo.save(employee2));
 				Intervention intervention = new Intervention(customer, employee, LocalDate.of(2018, 12, 25), LocalTime.of(15, 0), Duration.ofHours(1));
-				interventionRepo.save(intervention);
+				System.out.println(interventionRepo.save(intervention));
 			}
 		};
 	}

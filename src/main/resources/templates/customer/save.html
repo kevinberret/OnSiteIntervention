@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div class="col s12 m8 offset-m1 xl7 offset-xl1" layout:fragment="content">			 	
-		<form th:object="${customer}" th:action="@{/customer/save}" action="#" method="post">
+		<form th:object="${customer}" th:action="@{/app/customer/save}" action="#" method="post">
 			<input type="hidden" id="id" th:field="*{id}"/>
 			<h5>Customer informations</h5>
 		    <div class="row">
