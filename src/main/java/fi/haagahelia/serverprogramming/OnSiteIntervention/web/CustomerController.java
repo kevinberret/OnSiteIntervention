@@ -69,7 +69,7 @@ public class CustomerController {
 		customerService.addCustomer(customer);
 		
 		// redirect to list of customers
-		return "redirect:/customer/showlist";
+		return "redirect:/app/customer/showlist";
 	}
 	
 	@GetMapping("/delete/{id}")
@@ -79,6 +79,6 @@ public class CustomerController {
 		customerService.deleteCustomerById(id);
 		
 		// render data in template
-		return "redirect:/customer/showlist";
+		return "redirect:/app/customer/showlist";
 	}
 }

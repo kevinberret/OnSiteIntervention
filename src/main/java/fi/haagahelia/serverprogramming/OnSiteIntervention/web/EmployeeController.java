@@ -60,12 +60,12 @@ public class EmployeeController {
 	
 	@PostMapping("/save")
 	@PreAuthorize("hasAuthority('ADMIN')")
-	public String saveEmployee(Employee employee) {
+	public String saveEmployee(Employee employee) {		
 		// save the entity via the service layer
 		employeeService.addEmployee(employee);
 		
 		// redirect to list of employees
-		return "redirect:/employee/showlist";
+		return "redirect:/app/employee/showlist";
 	}
 	
 	@GetMapping("/delete/{id}")
@@ -75,6 +75,6 @@ public class EmployeeController {
 		employeeService.deleteEmployeeById(id);
 		
 		// render data in template
-		return "redirect:/employee/showlist";
+		return "redirect:/app/employee/showlist";
 	}
 }

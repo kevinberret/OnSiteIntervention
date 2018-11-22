@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.Employee;
@@ -32,7 +33,26 @@ public class EmployeeService {
 	} 
 	
 	public Employee addEmployee(Employee employee) {
+		Optional<Employee> tmpEmployee = employeeRepo.findById(employee.getId());
+		if(tmpEmployee.isPresent()) {
+			// if employee already exists but user didn't want to change the password, get the one stored in db
+			if(employee.getPasswordHash().isEmpty()) {
+				employee.setPasswordHash(tmpEmployee.get().getPasswordHash());
+			}else {
+				// modify existing password
+				employee.setPasswordHash(getHashedPassword(employee.getPasswordHash()));
+			}
+		}else {
+			// if new employee, has his password to ensure some kind of security
+			employee.setPasswordHash(getHashedPassword(employee.getPasswordHash()));
+		}
+		
 		return employeeRepo.save(employee);
+	}
+	
+	private String getHashedPassword(String password) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		return passwordEncoder.encode(password);
 	}
 	
 	public Employee updateEmployee(Employee employee) {

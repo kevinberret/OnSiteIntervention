@@ -109,7 +109,7 @@ public class InterventionController {
 		interventionService.addIntervention(intervention);
 		
 		// redirect to list of interventions
-		return "redirect:/intervention/showmylist";
+		return "redirect:/app/intervention/showmylist";
 	}
 	
 	@GetMapping("/delete/{id}")
@@ -118,6 +118,6 @@ public class InterventionController {
 		interventionService.deleteInterventionById(id);
 		
 		// render data in template
-		return "redirect:/intervention/showlist";
+		return "redirect:/app/intervention/showlist";
 	}
 }
