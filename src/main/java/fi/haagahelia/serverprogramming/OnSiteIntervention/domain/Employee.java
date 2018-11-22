@@ -28,6 +28,7 @@ public class Employee extends Person {
 	private List<Intervention> interventions;
 	
 	@Column(name="username", nullable=false, unique=true)
+	@JsonIgnore
 	private String username;
 	
 	@Column(name="password", nullable=false)
