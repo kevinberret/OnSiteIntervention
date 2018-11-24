@@ -59,7 +59,7 @@ public class WebSecurityConfig  {
 				.authenticated()
 		    .and()
 		    // Filter for the login requests
-		    .addFilterBefore(new LoginFilter("/api/login", authenticationManager()),
+		    .addFilterBefore(new LoginFilter("/api/login", authenticationManager(), getApplicationContext()),
 		       UsernamePasswordAuthenticationFilter.class)
 		    // Filter for other requests to check JWT in header
 		    .addFilterBefore(new AuthenticationFilter(),
