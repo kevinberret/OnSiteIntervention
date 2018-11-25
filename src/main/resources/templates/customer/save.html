@@ -9,6 +9,7 @@
 	<div class="col s12 m8 offset-m1 xl7 offset-xl1" layout:fragment="content">			 	
 		<form th:object="${customer}" th:action="@{/app/customer/save}" action="#" method="post">
 			<input type="hidden" id="id" th:field="*{id}"/>
+			<input type="hidden" id="address_id" th:field="*{address.id}"/>
 			<h5>Customer informations</h5>
 		    <div class="row">
 		        <div class="input-field col s6">
@@ -39,6 +40,16 @@
 		        <div class="input-field col s6">
 		        	<input id="city" type="text" class="validate" th:field="*{address.city}" required>
           			<label for="city">City</label>
+		        </div>
+		      </div>
+		      <div class="row">
+		        <div class="input-field col s6">
+		        	<input id="latitude" type="text" class="validate" th:field="*{address.latitude}" required>
+          			<label for="latitude">Latitude</label>
+		        </div>
+		        <div class="input-field col s6">
+		        	<input id="longitude" type="text" class="validate" th:field="*{address.longitude}" required>
+          			<label for="longitude">Longitude</label>
 		        </div>
 		      </div>
 		  	<button type="submit" class="waves-effect waves-green btn-flat"><i class="material-icons left">send</i> Save</button>

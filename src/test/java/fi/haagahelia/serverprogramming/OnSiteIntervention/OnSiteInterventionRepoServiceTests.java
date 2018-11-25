@@ -21,7 +21,6 @@ import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.Address;
 import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.Customer;
 import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.Employee;
 import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.Intervention;
-import fi.haagahelia.serverprogramming.OnSiteIntervention.service.AddressService;
 import fi.haagahelia.serverprogramming.OnSiteIntervention.service.CustomerService;
 import fi.haagahelia.serverprogramming.OnSiteIntervention.service.EmployeeService;
 import fi.haagahelia.serverprogramming.OnSiteIntervention.service.InterventionService;
@@ -32,8 +31,6 @@ import fi.haagahelia.serverprogramming.OnSiteIntervention.service.InterventionSe
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @ActiveProfiles("test")
 public class OnSiteInterventionRepoServiceTests {
-	@Autowired
-	private AddressService addressService;
 	
 	@Autowired
 	private CustomerService customerService;

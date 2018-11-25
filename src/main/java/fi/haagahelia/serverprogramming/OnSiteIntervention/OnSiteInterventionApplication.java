@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 
 import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.Address;
-import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.AddressRepository;
 import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.Customer;
 import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.CustomerRepository;
 import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.Employee;
@@ -30,20 +29,17 @@ public class OnSiteInterventionApplication {
 	
 	@Bean
 	@Profile("!test")
-	public CommandLineRunner demo(CustomerRepository customerRepo, AddressRepository addressRepo, EmployeeRepository employeeRepo, InterventionRepository interventionRepo) {
+	public CommandLineRunner demo(CustomerRepository customerRepo, EmployeeRepository employeeRepo, InterventionRepository interventionRepo) {
 		return args->{
 			/*interventionRepo.deleteAll();
 			employeeRepo.deleteAll();
-			customerRepo.deleteAll();
-			addressRepo.deleteAll();*/
+			customerRepo.deleteAll();*/
 			
 			// insert data only if database is empty
-			if(addressRepo.count() == 0 
-					&& customerRepo.count() == 0
+			if(customerRepo.count() == 0
 					&& employeeRepo.count() == 0
 					&& interventionRepo.count() == 0) {
 				Address address1 = new Address("Baker Street", "221b", "London", "NW1 6XE", 51.523770, -0.158556);
-				System.out.println(addressRepo.save(address1).getId());
 				
 				Customer customer = new Customer("Sherlock", "Holmes", address1);
 				System.out.println(customerRepo.save(customer).getId());

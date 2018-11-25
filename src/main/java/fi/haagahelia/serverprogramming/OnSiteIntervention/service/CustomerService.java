@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.AddressRepository;
 import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.Customer;
 import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.CustomerRepository;
 
@@ -20,9 +19,6 @@ public class CustomerService {
 	@Autowired
 	private CustomerRepository customerRepo;
 	
-	@Autowired
-	private AddressRepository addressRepo;
-	
 	public List<Customer> getAllCustomers() {
 		return (List<Customer>) customerRepo.findAll();
 	}
@@ -32,8 +28,6 @@ public class CustomerService {
 	}
 	
 	public Customer addCustomer(Customer customer) {
-		// save the address first and then save the customer
-		addressRepo.save(customer.getAddress());
 		return customerRepo.save(customer);
 	}
 	

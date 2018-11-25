@@ -20,7 +20,7 @@ import javax.persistence.OneToOne;
     @AttributeOverride(name = "id", column = @Column(name = "customer_id"))
 })
 public class Customer extends Person{
-	@OneToOne(cascade=CascadeType.REMOVE)
+	@OneToOne(cascade=CascadeType.ALL)
 	protected Address address;
 	
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="customer")
