@@ -185,7 +185,7 @@ public class OnSiteInterventionRepoServiceTests {
 			.isNotEmpty();		
 		
 		// delete the customer
-		interventionService.deleteIntervention(intervention);
+		System.out.println(interventionService.deleteInterventionById(intervention.getId()));
 		
 		// try to find the customer
 		assertThat(interventionService.getIntervention(intervention.getId())).isEmpty();
@@ -198,7 +198,7 @@ public class OnSiteInterventionRepoServiceTests {
 			.isNotEmpty();
 		
 		// delete the customer
-		customerService.deleteCustomer(customer);
+		customerService.deleteCustomerById(customer.getId());
 		
 		// try to find the customer
 		assertThat(customerService.getCustomer(customer.getId())).isEmpty();
@@ -211,7 +211,7 @@ public class OnSiteInterventionRepoServiceTests {
 			.isNotEmpty();
 		
 		// delete the employee
-		employeeService.deleteEmployee(employee);
+		employeeService.deleteEmployeeById(employee.getId());
 		
 		// try to find the employee
 		assertThat(employeeService.getEmployee(employee.getId()))
