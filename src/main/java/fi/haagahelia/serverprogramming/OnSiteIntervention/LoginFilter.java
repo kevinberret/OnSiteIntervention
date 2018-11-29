@@ -39,9 +39,11 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
 	}
 
 	@Override
-	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
-			throws AuthenticationException, IOException, ServletException {
+	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
+		// try to get a user representation from the token 
 		AccountCredentials creds = new ObjectMapper().readValue(request.getInputStream(), AccountCredentials.class);
+		
+		// authenticate the user
 		return getAuthenticationManager().authenticate(
 				new UsernamePasswordAuthenticationToken(
 						creds.getUsername(),
@@ -55,8 +57,8 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
-		System.out.println("add token");
-		AuthenticationService.addToken(response, authResult.getName());
+		String role = authResult.getAuthorities().iterator().next().toString();
+		AuthenticationService.addToken(response, authResult.getName(), role);
 		
 		// add employee informations in the body
 		Employee employee = employeeService.getEmployeeByUsername(authResult.getName());

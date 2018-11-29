@@ -42,15 +42,18 @@ public class WebSecurityConfig  {
 		@Override
         protected void configure(HttpSecurity http) throws Exception {		
 			// security for API endpoint
+			// disable csrf support and cors
 			http
 				.csrf()
 				.disable()
 				.cors()
+			// authorize requests on /api only to authenticated users
 			.and()
 				.antMatcher("/api/**")                               
                 .authorizeRequests()
                 .anyRequest()
                 .authenticated()
+            // allow to authentication on /api/login
 			.and()
 				.authorizeRequests()
 				.antMatchers(HttpMethod.POST, "/api/login")
@@ -58,14 +61,15 @@ public class WebSecurityConfig  {
 				.anyRequest()
 				.authenticated()
 		    .and()
-		    // Filter for the login requests
+		    // Filter for the login requests to add the token in the header and the user informations in the body if correct token
 		    .addFilterBefore(new LoginFilter("/api/login", authenticationManager(), getApplicationContext()),
 		       UsernamePasswordAuthenticationFilter.class)
-		    // Filter for other requests to check JWT in header
+		    // Filter for other requests to check JWT in header if its correct and allow/disallow access to resource
 		    .addFilterBefore(new AuthenticationFilter(),
 		       UsernamePasswordAuthenticationFilter.class);
         }
 		
+		// configure cors configuration
 		@Bean
 	    protected CorsConfigurationSource corsConfigurationSource() {
 			UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -86,22 +90,27 @@ public class WebSecurityConfig  {
     public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
+        	// allow all resources in css and js folders to be accessed by anyone
         	http
     		.authorizeRequests()
     			.antMatchers("/css/**", "/js/**")
     			.permitAll()
+    		// allow access to /app/** only to authenticated people
 			.and()
 				.authorizeRequests()
 				.antMatchers("/app/**")
-				.authenticated()		
+				.authenticated()
+			// specify the login form url (access to everyone) and the redirect url after login
     		.and()
     			.formLogin()
     			.loginPage("/app/login")
     			.defaultSuccessUrl("/app/index")
     			.permitAll()
+    		// logout can be accessed by everyone
     		.and()
     			.logout()
     			.permitAll()
+			// custom error page
     		.and()
     	      	.exceptionHandling()
     	      	.accessDeniedPage("/app/403");

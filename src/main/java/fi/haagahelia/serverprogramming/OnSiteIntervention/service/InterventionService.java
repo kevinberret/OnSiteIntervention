@@ -45,7 +45,7 @@ public class InterventionService {
 		Optional<Intervention> element = interventionRepo.findById(intervention.getId());
 		
 		if(element.isPresent()) {		
-			interventionRepo.delete(intervention);
+			interventionRepo.delete(element.get());
 			return true;
 		}
 		
@@ -57,7 +57,7 @@ public class InterventionService {
 		Optional<Intervention> element = interventionRepo.findById(id);
 		
 		if(element.isPresent()) {
-			interventionRepo.delete(element.get());
+			interventionRepo.deleteById(id);
 			return true;
 		}
 		

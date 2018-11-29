@@ -9,10 +9,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.Customer;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.List;
+
 import org.json.simple.JSONObject;
 
 @RunWith(SpringRunner.class)
@@ -38,11 +46,7 @@ public class WebLayerTests {
 	@Test
 	public void testGetCustomers() throws Exception {
 		// first get token
-		MvcResult result = this.mockMvc.perform(post("/api/login")
-			.content("{\"username\":\"admin\", \"password\":\"admin\"}"))
-			.andDo(print()).andExpect(status().isOk()).andReturn();
-		
-		String token = result.getResponse().getHeader("Authorization");
+		String token = login();
 		
 		assertThat(token).isNotNull();
 
@@ -58,7 +62,12 @@ public class WebLayerTests {
     	// try to get data with wrong token in header
         this.mockMvc.perform(get("/api/customers")
 			.header("Authorization", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbi50ZXN0IiwiZXhwIjoxNTQzMjQ3NjA5fQ.cMR5t4UfkAHykUG7x10E3KMGtx4nD8ng9-3T55zrzQ0O0y32dXZxUtxMcCU11PqcWDyb8VIOWFn-JqhyOgLVOg"))
-    		.andDo(print()).andExpect(status().is5xxServerError());
+    		.andDo(print()).andExpect(status().is4xxClientError());
+        
+        // try to get data with wrong token in header
+        this.mockMvc.perform(get("/api/customers")
+			.header("Authorization", "fakeToken"))
+    		.andDo(print()).andExpect(status().is4xxClientError());
 	}
 	
 	@Test
@@ -75,11 +84,7 @@ public class WebLayerTests {
 		customer.put("address", address);
 		
 		// first get token
-		MvcResult result = this.mockMvc.perform(post("/api/login")
-			.content("{\"username\":\"admin\", \"password\":\"admin\"}"))
-			.andDo(print()).andExpect(status().isOk()).andReturn();
-		
-		String token = result.getResponse().getHeader("Authorization");
+		String token = login();
 		
 		assertThat(token).isNotNull();
 
@@ -88,19 +93,35 @@ public class WebLayerTests {
     		.header("Authorization", token)
     		.header("Content-Type", "application/json")
     		.content(customer.toString()))
-    		.andDo(print()).andExpect(status().isOk());
+    		.andDo(print()).andExpect(status().is2xxSuccessful());
         
         // try to post data with wrong token in header
         this.mockMvc.perform(post("/api/customers")
     		.header("Authorization", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbi50ZXN0IiwiZXhwIjoxNTQzMjQ3NjA5fQ.cMR5t4UfkAHykUG7x10E3KMGtx4nD8ng9-3T55zrzQ0O0y32dXZxUtxMcCU11PqcWDyb8VIOWFn-JqhyOgLVOg")
     		.header("Content-Type", "application/json")
     		.content(customer.toString()))
-    		.andDo(print()).andExpect(status().is5xxServerError());
+    		.andDo(print()).andExpect(status().is4xxClientError());
+        
+        // try to get data with wrong token in header
+        this.mockMvc.perform(post("/api/customers")
+			.header("Authorization", "fakeToken")
+			.header("Content-Type", "application/json"))
+    		.andDo(print()).andExpect(status().is4xxClientError());
         
         // try to post data without token in header
         this.mockMvc.perform(post("/api/customers")
     		.header("Content-Type", "application/json")
     		.content(customer.toString()))
     		.andDo(print()).andExpect(status().is4xxClientError());
+	}
+	
+	private String login() throws Exception{
+		MvcResult result = this.mockMvc.perform(post("/api/login")
+				.content("{\"username\":\"admin\", \"password\":\"admin\"}"))
+				.andDo(print()).andExpect(status().isOk()).andReturn();
+			
+		String token = result.getResponse().getHeader("Authorization");
+			
+		return token;
 	}
 }
