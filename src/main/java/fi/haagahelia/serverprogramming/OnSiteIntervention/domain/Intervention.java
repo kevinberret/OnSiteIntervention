@@ -42,6 +42,13 @@ public class Intervention {
 	
 	private Duration duration;
 	
+	private String description;
+	private String materialNeeded;
+	private String feedback;
+	private boolean done;
+	private String signature;
+	private String phoneNumber;
+	
 	public Intervention() {
 		this.date = LocalDate.now();
 		this.time = LocalTime.now();
@@ -59,37 +66,96 @@ public class Intervention {
 	public Long getId() {
 		return id;
 	}
+	
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
 	public Customer getCustomer() {
 		return customer;
 	}
+	
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
+	
 	public Employee getEmployee() {
 		return employee;
 	}
+	
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
+	
 	public LocalDate getDate() {
 		return date;
 	}
+	
 	public void setDate(LocalDate date) {
 		this.date = date;
-	}	
+	}
+	
 	public LocalTime getTime() {
 		return time;
 	}
+	
 	public void setTime(LocalTime time) {
 		this.time = time;
 	}
+	
 	public Duration getDuration() {
 		return duration;
 	}
+	
 	public void setDuration(Duration duration) {
 		this.duration = duration;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getMaterialNeeded() {
+		return materialNeeded;
+	}
+
+	public void setMaterialNeeded(String materialNeeded) {
+		this.materialNeeded = materialNeeded;
+	}
+
+	public String getFeedback() {
+		return feedback;
+	}
+
+	public void setFeedback(String feedback) {
+		this.feedback = feedback;
+	}
+
+	public boolean isDone() {
+		return done;
+	}
+
+	public void setDone(boolean done) {
+		this.done = done;
+	}
+
+	public String getSignature() {
+		return signature;
+	}
+
+	public void setSignature(String signature) {
+		this.signature = signature;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 }

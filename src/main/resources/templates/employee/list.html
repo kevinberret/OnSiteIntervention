@@ -21,7 +21,7 @@
 				<td th:text="${#strings.defaultString(employee?.workRate, '')}"></td>
 				<td sec:authorize="${hasAuthority('ADMIN')}">
 					<a class="btn-flat tooltipped" data-position="top" data-tooltip="Edit" th:href="@{/app/employee/edit/{id}(id=${employee.id})}"><i class="material-icons left">edit</i></a>
-					<a class="btn-flat tooltipped" data-position="top" data-tooltip="Delete" th:href="@{/app/employee/delete/{id}(id=${employee.id})}"><i class="material-icons left">delete</i></a>
+					<a th:if="${employee.id != user.id}" class="btn-flat tooltipped" data-position="top" data-tooltip="Delete" th:href="@{/app/employee/delete/{id}(id=${employee.id})}"><i class="material-icons left">delete</i></a>
 				</td>
 			</tr>
 		</table>

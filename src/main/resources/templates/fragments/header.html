@@ -20,10 +20,10 @@
 		    <li>
 		    	<ul class="collapsible collapsible-accordion">
 		          <li>
-		            <a class="collapsible-header"><i class="material-icons">person</i>[[${employee.firstname}+ ' ' +${employee.lastname}]]</a>
+		            <a class="collapsible-header"><i class="material-icons">person</i>[[${user.firstname}+ ' ' +${user.lastname}]]</a>
 		            <div class="collapsible-body">
 		              <ul>
-		              	<li><a class="disabled"><span th:text="${employee.username}"></span></a></li>
+		              	<li><a class="disabled"><span th:text="${user.username}"></span></a></li>
 		                <li>
 		                	<form th:action="@{/logout}" id="logout" method="post">
 								<input type="submit" value="Sign Out" class="waves-effect waves-light red lighten-1 white-text btn-small"/>

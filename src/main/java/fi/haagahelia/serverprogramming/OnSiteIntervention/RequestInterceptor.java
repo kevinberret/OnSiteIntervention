@@ -29,7 +29,7 @@ public class RequestInterceptor extends HandlerInterceptorAdapter{
 			String username = loggedInUser.getName();
 		    
 		    Employee employee = employeeService.getEmployeeByUsername(username);
-	    	modelAndView.addObject("employee", employee);
+	    	modelAndView.addObject("user", employee);
 		}	    
 	}
 }

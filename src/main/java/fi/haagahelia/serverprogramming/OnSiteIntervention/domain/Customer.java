@@ -23,7 +23,7 @@ public class Customer extends Person{
 	@OneToOne(cascade=CascadeType.ALL)
 	protected Address address;
 	
-	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="customer")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="customer")
 	private List<Intervention> interventions;
 
 	public Customer() {
