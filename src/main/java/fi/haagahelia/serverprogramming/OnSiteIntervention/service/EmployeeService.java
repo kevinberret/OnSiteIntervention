@@ -20,6 +20,10 @@ public class EmployeeService {
 	@Autowired
 	private EmployeeRepository employeeRepo;
 	
+	public long count() {
+		return employeeRepo.count();
+	}
+	
 	public List<Employee> getAllEmployees() {
 		return (List<Employee>) employeeRepo.findAll();
 	}
@@ -81,5 +85,9 @@ public class EmployeeService {
 		}
 		
 		return false;
+	}
+	
+	public void deleteAll() {
+		employeeRepo.deleteAll();
 	}
 }

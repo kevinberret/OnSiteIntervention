@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Version;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -27,14 +28,6 @@ public abstract class Person {
 	// entity attributes
 	protected String firstname;
 	protected String lastname;
-	
-	/*public Person(String username, String password, boolean enabled, boolean accountNonExpired,
-			boolean credentialsNonExpired, boolean accountNonLocked,
-			Collection<? extends GrantedAuthority> authorities, String firstname, String lastname) {
-		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
-		this.firstname = firstname;
-		this.lastname = lastname;
-	}*/
 	
 	// getters and setters
 	public long getId() {
@@ -60,4 +53,5 @@ public abstract class Person {
 	public void setLastname(String lastname) {
 		this.lastname=lastname;
 	}
+	
 }

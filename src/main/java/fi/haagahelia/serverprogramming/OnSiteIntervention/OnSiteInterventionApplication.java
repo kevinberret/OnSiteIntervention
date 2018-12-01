@@ -3,9 +3,6 @@ package fi.haagahelia.serverprogramming.OnSiteIntervention;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
-
-import org.aspectj.weaver.Iterators;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,7 +13,7 @@ import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.Address;
 import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.Customer;
 import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.CustomerRepository;
 import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.Employee;
-import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.EmployeeRepository;
+import fi.haagahelia.serverprogramming.OnSiteIntervention.service.EmployeeService;
 import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.Intervention;
 import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.InterventionRepository;
 
@@ -29,7 +26,7 @@ public class OnSiteInterventionApplication {
 	
 	@Bean
 	@Profile("!test")
-	public CommandLineRunner demo(CustomerRepository customerRepo, EmployeeRepository employeeRepo, InterventionRepository interventionRepo) {
+	public CommandLineRunner demo(CustomerRepository customerRepo, EmployeeService employeeRepo, InterventionRepository interventionRepo) {
 		return args->{
 			/*interventionRepo.deleteAll();
 			employeeRepo.deleteAll();
@@ -39,16 +36,17 @@ public class OnSiteInterventionApplication {
 			if(customerRepo.count() == 0
 					&& employeeRepo.count() == 0
 					&& interventionRepo.count() == 0) {
-				Address address1 = new Address("Baker Street", "221b", "London", "NW1 6XE", 51.523770, -0.158556);
+				Address address1 = new Address("Baker Street", "221b", "London", "NW1 6XE", 51.523770, -0.158556);				
+				Customer customer = customerRepo.save(new Customer("Sherlock", "Holmes", address1));
 				
-				Customer customer = new Customer("Sherlock", "Holmes", address1);
-				System.out.println(customerRepo.save(customer).getId());
-				Employee employee = new Employee("John", "Watson", 100, "user", "$2a$10$uljXojmzMK8acsx5LDxWluYL9AS7BBTH/bItlKFdTwLx5vT94doFi", "USER");
-				System.out.println(employeeRepo.save(employee).getId());
-				Employee employee2 = new Employee("John", "Doe", 100, "admin", "$2a$10$9BxOY8KPMisep7c7/6y1Xe6kTLRDES72BjweTaY72qlYHezFzMhqW", "ADMIN");
-				System.out.println(employeeRepo.save(employee2));
+				Employee employee = employeeRepo.addEmployee(new Employee("John", "Watson", 100, "user", "user", "USER"));
+				Employee employee2 = employeeRepo.addEmployee(new Employee("John", "Doe", 100, "admin", "admin", "ADMIN"));
+				
 				Intervention intervention = new Intervention(customer, employee, LocalDate.of(2018, 12, 25), LocalTime.of(15, 0), Duration.ofHours(1));
-				System.out.println(interventionRepo.save(intervention));
+				intervention.setDescription("Problème net+");
+				intervention.setMaterialNeeded("Router");
+				intervention.setPhoneNumber("+358417163587");
+				interventionRepo.save(intervention);
 			}
 		};
 	}

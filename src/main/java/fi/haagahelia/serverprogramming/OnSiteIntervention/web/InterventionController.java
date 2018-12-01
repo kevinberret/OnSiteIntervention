@@ -13,13 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.Address;
 import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.Customer;
-import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.CustomerRepository;
 import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.Employee;
-import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.EmployeeRepository;
 import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.Intervention;
-import fi.haagahelia.serverprogramming.OnSiteIntervention.domain.InterventionRepository;
 import fi.haagahelia.serverprogramming.OnSiteIntervention.service.CustomerService;
 import fi.haagahelia.serverprogramming.OnSiteIntervention.service.EmployeeService;
 import fi.haagahelia.serverprogramming.OnSiteIntervention.service.InterventionService;
@@ -62,8 +58,7 @@ public class InterventionController {
 	@GetMapping("/showlist")
 	@PreAuthorize("hasAuthority('ADMIN')")
 	public String listInterventions(Model model) {
-		// get connected username, then the employee and finally its interventions
-		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		// get all the interventions
 		List<Intervention> interventions = interventionService.getAllInterventions();
 		
 		// get all employees

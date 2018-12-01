@@ -2,7 +2,6 @@ package fi.haagahelia.serverprogramming.OnSiteIntervention.domain;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-
 import fi.haagahelia.serverprogramming.OnSiteIntervention.service.InlineEmployee;
 
 @RepositoryRestResource(collectionResourceRel="employees", path="employees", excerptProjection= InlineEmployee.class)

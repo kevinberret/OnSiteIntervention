@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * This entity represents an Employee.
@@ -28,15 +29,12 @@ public class Employee extends Person {
 	private List<Intervention> interventions;
 	
 	@Column(name="username", nullable=false, unique=true)
-	@JsonIgnore
 	private String username;
 	
 	@Column(name="password", nullable=false)
-	@JsonIgnore
 	private String passwordHash;
 	
 	@Column(name="role", nullable=false)
-	@JsonIgnore
 	private String role;
 	
 	public Employee() {
@@ -68,26 +66,32 @@ public class Employee extends Person {
 		this.interventions = interventions;
 	}
 
+	@JsonIgnore
 	public String getUsername() {
 		return username;
 	}
 
+	@JsonProperty
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
+	@JsonIgnore
 	public String getPasswordHash() {
 		return passwordHash;
 	}
 
+	@JsonProperty
 	public void setPasswordHash(String passwordHash) {
 		this.passwordHash = passwordHash;
-	}
+	}	
 
+	@JsonIgnore
 	public String getRole() {
 		return role;
 	}
 
+	@JsonProperty
 	public void setRole(String role) {
 		this.role = role;
 	}
